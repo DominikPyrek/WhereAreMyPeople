@@ -6,13 +6,13 @@ class UserSerializer(serializers.ModelSerializer):
         fields = ('id', 'first_name', 'last_name', 'device')
 
 class LocationSerializer(serializers.ModelSerializer):
-    device_serial = serializers.SerializerMethodField()
+    device = serializers.PrimaryKeyRelatedField(queryset=Device.objects.all(), write_only=True)
 
     class Meta:
         model = Location
-        fields = ('id', 'user', 'device_serial', 'latitude', 'longitude', 'timestamp')
+        fields = ('id',  'device', 'user', 'latitude', 'longitude', 'ping_time')
 
-    def get_device_serial(self, obj):
-        if obj.user and obj.user.device:
-            return obj.user.device.serial_number
-        return None
+class DeviceSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Device
+        fields = ('id', 'serial_number')

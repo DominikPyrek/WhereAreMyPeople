@@ -47,7 +47,7 @@ class User(models.Model):
 class Location(models.Model):
     device = models.ForeignKey(Device, on_delete=models.CASCADE, related_name="device_locations")
     user = models.ForeignKey(User, null=True, on_delete=SET_NULL)
-    timestamp = models.DateTimeField()
+    ping_time = models.DateTimeField()
     latitude = models.DecimalField(max_digits=8, decimal_places=6)
     longitude = models.DecimalField(max_digits=9, decimal_places=6)
     def __str__(self):
@@ -56,12 +56,12 @@ class Location(models.Model):
             return(f"Location:{self.id} at "
             f"latitude:{self.latitude} "
             f"longitude:{self.longitude} "
-            f"time:{self.timestamp} "
+            f"time:{self.ping_time} "
             f"user:{self.user.first_name} {self.user.last_name}"
             )
 
         return(f"Location:{self.id} at "
             f"latitude:{self.latitude} "
             f"longitude:{self.longitude} "
-            f"time:{self.timestamp} "
+            f"time:{self.ping_time} "
             )
