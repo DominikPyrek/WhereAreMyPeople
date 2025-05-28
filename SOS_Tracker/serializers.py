@@ -15,4 +15,4 @@ class LocationSerializer(serializers.ModelSerializer):
 class DeviceSerializer(serializers.ModelSerializer):
     class Meta:
         model = Device
-        fields = ('id', 'serial_number')
+        fields = ('id', 'serial_number', 'assigment_status')

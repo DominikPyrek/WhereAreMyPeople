@@ -34,6 +34,8 @@ def assign_device_to_user(request, id):
         user.device = device
         user.save()
         serializer = UserSerializer(user)
+        device.assigment_status = True
+        device.save()
         return Response(serializer.data, status=status.HTTP_200_OK)
 
     except Device.DoesNotExist:
@@ -95,6 +97,15 @@ def latest_location_of_all_devices(request):
                 })
         return Response(results)
         
+    except Exception as e:
+        return Response({"error": str(e)}, status=500)
+
+@api_view(['GET'])
+def devices(request):
+    try:
+        devices = Device.objects.all()
+        serializer = DeviceSerializer(devices, many=True)
+        return Response(serializer.data)
     except Exception as e:
         return Response({"error": str(e)}, status=500)
 
