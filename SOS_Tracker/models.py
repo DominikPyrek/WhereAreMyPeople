@@ -47,7 +47,7 @@ class User(models.Model):
 class Location(models.Model):
     device = models.ForeignKey(Device, on_delete=models.CASCADE, related_name="device_locations")
     user = models.ForeignKey(User, null=True, on_delete=SET_NULL)
-    timestamp = models.DateTimeField(auto_now_add=True)
+    timestamp = models.DateTimeField()
     latitude = models.DecimalField(max_digits=8, decimal_places=6)
     longitude = models.DecimalField(max_digits=9, decimal_places=6)
     def __str__(self):
