@@ -9,4 +9,5 @@ urlpatterns = [
     path('users/<int:id>/location/', views.get_user_location),
     path('map/', views.latest_location_of_all_devices),
     path('devices/', views.devices),
+    path('devices/<int:id>/unassign/', views.unassign),
 ]

@@ -84,18 +84,17 @@ def get_user_location(request, id):
 @api_view(['GET'])
 def latest_location_of_all_devices(request):
     try:
-        users = User.objects.filter(device__isnull=False).distinct()
-        results = []
-        for user in users:
-            last_location = Location.objects.filter(user=user).last()
-            results.append({
-                    'user': user.id,
-                    'device': user.device.id,
-                    'latitude': last_location.latitude,
-                    'longitude': last_location.longitude,
-                    'ping_time': last_location.ping_time
-                })
-        return Response(results)
+        locations = Location.objects.select_related('user','device').distinct('device')
+
+        device_type = request.query_params.get('device_type', None)
+        user_id = request.query_params.get('user_id', None)
+        if device_type:
+            users = locations.filter(device__device_type=device_type)
+        if user_id:
+            users = locations.filter(id=user_id)
+
+        serializer = LocationSerializer(locations, many=True)
+        return Response(serializer.data)
         
     except Exception as e:
         return Response({"error": str(e)}, status=500)
@@ -108,4 +107,26 @@ def devices(request):
         return Response(serializer.data)
     except Exception as e:
         return Response({"error": str(e)}, status=500)
+
+@api_view(['POST'])
+def unassign(request, id):
+    try:
+        device = Device.objects.get(pk=id)
+        user = User.objects.get(device=device)
+        device.assignment_status = False
+        device.save()
+        user.device = None
+        user.save()
+        return Response({
+            "message": "Device unassigned successfully",
+            "device_id": device.id,
+            "user_id": user.id
+        }, status=status.HTTP_200_OK)
+
+    except Device.DoesNotExist:
+        return Response({"error": "Device not found"}, status=status.HTTP_404_NOT_FOUND)
+
+    except User.DoesNotExist:
+        return Response({"error": "User not found"}, status=status.HTTP_404_NOT_FOUND)
+
 

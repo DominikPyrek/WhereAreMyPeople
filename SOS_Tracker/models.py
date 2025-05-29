@@ -4,6 +4,7 @@ from django.db.models import SET_NULL
 class Device(models.Model):
 
     serial_number = models.CharField(max_length=40)
+    device_type = models.CharField(max_length=40)
     assigment_status = models.BooleanField(default=False)
 
     def __str__(self):
