@@ -173,6 +173,7 @@ GET /map/
 
 
 ## A short note:
+
 If i had more time: 
 a) Change how settings are handled by using .env files.
 b) Make creating users and devices more robust.
