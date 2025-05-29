@@ -18,10 +18,6 @@ A location tracking and people finding application that helps you stay connected
 - **Device Filtering** - Filter devices by type and user
 - **RESTful API** - Complete REST API for all operations
 
-## 📱 Screenshots
-
-[Add screenshots of your application here]
-
 ## 🛠️ Tech Stack
 
 - **Backend:** Django 5.2.1 with Django REST Framework 3.16.0
