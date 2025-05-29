@@ -171,17 +171,16 @@ GET /map/
 - `latitude` - GPS latitude coordinate
 - `longitude` - GPS longitude coordinate
 
+## A short note(If i had more time):
 
-## A short note:
+- Change how settings are handled by using .env files.
+- Make creating users and devices more robust.
+- Depending on the use case make GET's paginated.
+- Add API Throttling.
+- Added some type of auth (currently, anyone can modify data without restrictions).
+- Add code comments for clarity.
+- Search for a way to make querries more efficient.
 
-If i had more time: 
-a) Change how settings are handled by using .env files.
-b) Make creating users and devices more robust.
-c) Depending on the use case make GET's paginated.
-d) Add API Throttling.
-e) Added some type of auth (currently, anyone can modify data without restrictions).
-f) Add code comments for clarity.
-g) Search for a way to make querries better.
 ---
 
 <div align="center">
